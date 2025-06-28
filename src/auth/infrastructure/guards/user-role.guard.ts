@@ -1,4 +1,4 @@
-import { CanActivate, ExecutionContext, Injectable, BadRequestException, ForbiddenException } from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable, ForbiddenException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
 import { META_ROLES } from '../decorators';
@@ -22,7 +22,15 @@ export class UserRoleGuard implements CanActivate {
         const user = req.user;
 
         if (!user)
-            throw new BadRequestException('User not found');
+            throw new ForbiddenException('User not found');
+
+        if (user.roles && Array.isArray(user.roles) && user.roles.includes('superadmin')) {
+            return true;
+        }
+
+        if (!user.roles || !Array.isArray(user.roles)) {
+            throw new ForbiddenException('User has no valid roles');
+        }
 
         for (const role of user.roles) {
             if (validRoles.includes(role)) {
@@ -31,7 +39,7 @@ export class UserRoleGuard implements CanActivate {
         }
 
         throw new ForbiddenException(
-            `User ${user.username} need a valid role: [${validRoles}]`
+            `User ${user.username || 'unknown'} need a valid role: [${validRoles}]`
         );
     }
 }

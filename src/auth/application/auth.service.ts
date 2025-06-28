@@ -3,11 +3,11 @@ import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from 'bcryptjs';
 
-import { AUTH_REPOSITORY, AuthRepository } from "../domain/ports/auth.port.repository.js";
+import { AUTH_REPOSITORY, AuthRepository } from "../domain/ports/auth.port.repository";
 
-import { MessagesConstant } from "../../common/constants/index.js";
-import { ResponsesUtil, FunctionsUtil } from "../../common/utils/index.js";
-import { IAuth } from "../domain/interfaces/auth.interface.js";
+import { MessagesConstant } from "../../common/constants";
+import { ResponsesUtil, FunctionsUtil } from "../../common/utils";
+import { IAuth } from "../domain/interfaces/auth.interface";
 
 import { ILogin, IToken } from "../domain/interfaces";
 

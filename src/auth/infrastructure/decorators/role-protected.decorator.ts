@@ -1,8 +1,6 @@
+import { IValidRoles } from '../../../common/interfaces/valid-roles.interface';
 import { SetMetadata } from '@nestjs/common';
-import { IValidRoles } from 'src/common/interfaces/valid-roles.interface';
 
 export const META_ROLES = 'roles';
 
-export const RoleProtected = (...args: IValidRoles[]) => {
-    return SetMetadata(META_ROLES, args);
-}
+export const RoleProtected = (...args: IValidRoles[]) => SetMetadata(META_ROLES, args);

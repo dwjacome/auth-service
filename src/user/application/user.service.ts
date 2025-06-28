@@ -1,15 +1,15 @@
 import { BadRequestException, HttpException, Inject, Injectable, InternalServerErrorException, NotFoundException, UnauthorizedException, Logger } from "@nestjs/common";
 import { IApiResponse, IAuthResponse, IUserResponse } from "../../common/interfaces/response.interface";
 
-import { USER_REPOSITORY, UserRepository } from "../domain/ports/user.port.repository.js";
+import { USER_REPOSITORY, UserRepository } from "../domain/ports/user.port.repository";
 
 import { MessagesConstant } from "../../common/constants";
 import { ResponsesUtil, FunctionsUtil } from "../../common/utils";
 
 import { ILogin, IUser } from "../domain/interfaces";
-import { AuthService } from "src/auth/application/auth.service";
+import { AuthService } from "../../auth/application/auth.service";
 import * as bcrypt from 'bcryptjs';
-import { IValidRoles } from "../../common/interfaces/valid-roles.interface.js";
+import { IValidRoles } from "../../common/interfaces/valid-roles.interface";
 
 @Injectable()
 export class UserService {
@@ -131,14 +131,14 @@ export class UserService {
             };
 
             if (body.email) {
-                const userToSave = await this.userRepository.findByEmail(body.email);
-                if (userToSave) throw new BadRequestException('The user exist');
+                const existingUser = await this.userRepository.findByEmail(body.email);
+                if (existingUser) throw new BadRequestException('The user exist');
                 userToSave.email = body.email;
             }
 
             if (body.username) {
-                const userToSave = await this.userRepository.findByUsername(body.username);
-                if (userToSave) throw new BadRequestException('The user exist');
+                const existingUser = await this.userRepository.findByUsername(body.username);
+                if (existingUser) throw new BadRequestException('The user exist');
                 userToSave.username = body.username;
             }
 

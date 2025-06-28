@@ -1,9 +1,9 @@
 import { Injectable, InternalServerErrorException } from "@nestjs/common";
 
-import { UserRepository } from "src/user/domain/ports/user.port.repository";
+import { UserRepository } from "../../domain/ports/user.port.repository";
 
-import { DBService } from "src/dababases/db.service";
-import { IUser } from "src/user/domain/interfaces";
+import { DBService } from "../../../dababases/db.service";
+import { IUser } from "../../domain/interfaces";
 
 @Injectable()
 export class UserAdapterRepository implements UserRepository {

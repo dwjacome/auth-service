@@ -2,9 +2,9 @@ import { Controller, Post, Body, Param, Put, Get, Delete } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 import { LoginDto, UpdateUserDto } from './dtos';
-import { Auth } from 'src/auth/infrastructure/decorators';
-import { IValidRoles } from 'src/common/interfaces/valid-roles.interface';
-import { ResponsesUtil } from 'src/common/utils';
+import { Auth } from '../../auth/infrastructure/decorators';
+import { IValidRoles } from '../../common/interfaces/valid-roles.interface';
+import { ResponsesUtil } from '../../common/utils';
 import { CreateUserDto } from './dtos';
 import { UserService } from '../application/user.service';
 

@@ -2,8 +2,8 @@ import { Controller, Post, Body, Param, Put, Get, Delete } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 import { AuthService } from '../application/auth.service';
-import { LoginAuthDto, CreateTokenDto, CreateAuthDto, UpdateAuthDto } from './dtos';
-import { ResponsesUtil } from 'src/common/utils';
+import { CreateAuthDto, LoginAuthDto, UpdateAuthDto, CreateTokenDto } from './dtos';
+import { ResponsesUtil } from '../../common/utils';
 import { Auth } from './decorators';
 
 @Controller('auth')

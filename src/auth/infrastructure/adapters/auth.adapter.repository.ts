@@ -1,9 +1,9 @@
 import { Injectable, InternalServerErrorException } from "@nestjs/common";
 
-import { AuthRepository } from "src/auth/domain/ports/auth.port.repository";
-import { IAuth, IToken } from "src/auth/domain/interfaces";
+import { AuthRepository } from "../../domain/ports/auth.port.repository";
+import { IAuth, IToken } from "../../domain/interfaces";
 
-import { DBService } from "src/dababases/db.service";
+import { DBService } from "../../../dababases/db.service";
 
 @Injectable()
 export class AuthAdapterRepository implements AuthRepository {
