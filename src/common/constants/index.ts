@@ -1,0 +1,1 @@
+export { MessagesConstant } from './messages.constant';

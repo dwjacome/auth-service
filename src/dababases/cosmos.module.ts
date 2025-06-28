@@ -1,6 +1,7 @@
 import { Module, Global, DynamicModule } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CosmosClient } from '@azure/cosmos';
+import { DBService } from './db.service';
 
 @Global()
 @Module({})
@@ -21,8 +22,9 @@ export class CosmosDBModule {
           },
           inject: [ConfigService],
         },
+        DBService,
       ],
-      exports: ['COSMOS_DB_CONNECTION'],
+      exports: ['COSMOS_DB_CONNECTION', DBService],
     };
   }
 }
