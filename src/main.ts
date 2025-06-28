@@ -1,26 +1,26 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }));
 
-  const config = new DocumentBuilder()
-    .setTitle('Auth API')
-    .setDescription('Authentication and Authorization')
-    .setVersion('1.0')
-    .addBearerAuth()
-    .build();
-  const document = SwaggerModule.createDocument(app, config);
-
-  SwaggerModule.setup('api/docs', app, document);
+  const corsOptions: CorsOptions = {
+    origin: '*',//configService.get('ALLOWED_ORIGINS', 'http://localhost:3000').split(','),
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  };
+  app.enableCors(corsOptions);
 
   const configService = app.get<ConfigService>(ConfigService);
-  const PORT = configService.get<string>('PORT');
+  const PORT = configService.get<number>('PORT', 3000);
   await app.listen(PORT);
 }
 
