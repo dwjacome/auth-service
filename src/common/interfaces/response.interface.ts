@@ -21,20 +21,3 @@ export interface IUserResponse {
     birth_date?: string;
     roles: string[];
 }
-
-export interface IClientResponse {
-    id_client: string;
-    country: string;
-    phone: string;
-    name: string;
-    url: string;
-    updated_at: number;
-}
-
-export interface IConfigResponse {
-    id_config: string;
-    account: {
-        verify_phone: boolean;
-        [key: string]: any;
-    };
-} 

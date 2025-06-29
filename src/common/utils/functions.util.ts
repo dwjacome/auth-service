@@ -35,61 +35,8 @@ export class FunctionsUtil {
         return timeString;
     }
 
-    static getWeekRange(weeksAgo = 0) {
-        const startOfWeek = moment().subtract(weeksAgo, "weeks").startOf("isoWeek");
-        const endOfWeek = moment().subtract(weeksAgo, "weeks").endOf("isoWeek");
-
-        return {
-            start: startOfWeek.valueOf(),
-            end: endOfWeek.valueOf()
-        };
-    }
-
-    static getCurrentMonthRange() {
-        const startOfMonth = moment().startOf("month");
-        const endOfMonth = moment().endOf("month");
-
-        return {
-            start: startOfMonth.valueOf(),
-            end: endOfMonth.valueOf()
-        };
-    }
-
-    static getDaysOfCurrentMonthAsStrings(): string[] {
-        const daysInMonth = moment().daysInMonth();
-        const daysArray: string[] = [];
-        for (let day = 1; day <= daysInMonth; day++) {
-            daysArray.push(day.toString());
-        }
-        return daysArray;
-    }
-
     static sumArray(numbers: number[]): number {
         return numbers.reduce((acc, curr) => acc + curr, 0);
-    }
-
-    static summarizeMessagesByDay(startDate: number, endDate: number, result: { timestamp: string }[]) {
-        const start = moment(startDate);
-        const end = moment(endDate);
-
-        // Inicializa un arreglo con 0s, uno por cada día en el rango
-        const dailyCount: { date: number, count: number }[] = [];
-
-        // Itera sobre cada día en el rango de fechas
-        for (let day = moment(start); day.isSameOrBefore(end); day.add(1, 'days')) {
-            dailyCount.push({ date: day.valueOf(), count: 0 }); // Inicializa el contador para cada día
-        }
-
-        // Recorre los resultados y cuenta las ocurrencias de send_at por día
-        result.forEach(record => {
-            const sendDate = moment(record.timestamp);
-            const dayIndex = sendDate.diff(start, 'days'); // Encuentra el índice del día correspondiente
-            if (dayIndex >= 0 && dayIndex < dailyCount.length) {
-                dailyCount[dayIndex].count += 1;
-            }
-        });
-
-        return dailyCount.map((d: any) => d.count); // Devuelve el arreglo con los conteos por día
     }
 
     static isWithinMinutes(updated_at: number, minutes: number): boolean {
@@ -98,12 +45,6 @@ export class FunctionsUtil {
 
         const diff = currentTimestamp - updated_at;
         return diff >= 0 && diff <= rangeInMilliseconds;
-    }
-
-    static getRandomCode(): number {
-        const min = 100000; // Mínimo valor de 6 dígitos (no empieza con 0)
-        const max = 999999; // Máximo valor de 6 dígitos
-        return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
     static generateExcelAndUploadToAzure(dataCampaings: any) {
@@ -166,12 +107,6 @@ export class FunctionsUtil {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2,
         }).format(amount);
-    }
-
-    static renderTemplate(html, variables) {
-        return html.replace(/{{\s*(\w+)\s*}}/g, (_: any, key: any) => {
-            return variables.hasOwnProperty(key) ? variables[key] : '';
-        });
     }
 
 }
